@@ -1,22 +1,22 @@
 {
-    "name": "EnvironmentVariables",
-    "description": "Allows you to specify Matomo config in environment variables instead of the config file.",
-    "version": "4.0.1",
+    "name": "EnvironmentVariablesCleverCloud",
+    "description": "Loads Matomo Database config from Clever Cloud environment variables instead of the config file.",
+    "version": "1.0.0",
     "theme": false,
     "require": {
         "matomo": ">=4.0.0-b1,<5.0.0-b1"
     },
     "authors": [
         {
-            "name": "Matomo",
-            "email": "hello@matomo.org",
-            "homepage": "https://matomo.org"
+            "name": "Guillaume Lacasa",
+            "email": "contact-matotoplugin@adhess.net",
+            "homepage": "https://blog.lacasa.fr"
         }
     ],
     "support": {
         "email": "",
-        "issues": "https://github.com/matomo-org/plugin-EnvironmentVariables/issues/",
-        "forum": "https://forum.matomo.org"
+        "issues": "",
+        "forum": ""
     },
     "homepage": "https://matomo.org",
     "license": "GPL v3+",

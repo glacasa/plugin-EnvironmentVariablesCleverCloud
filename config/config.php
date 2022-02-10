@@ -9,23 +9,28 @@
 
 return array(
     'Piwik\Config' => DI\decorate(function ($previous, \Psr\Container\ContainerInterface $c) {
-        $settings = $c->get(\Piwik\Application\Kernel\GlobalSettingsProvider::class);
-
-        $ini = $settings->getIniFileChain();
-        $all = $ini->getAll();
-        foreach ($all as $category => $settings) {
-            $categoryEnvName = 'MATOMO_' . strtoupper($category);
-            foreach ($settings as $settingName => $value) {
-                $settingEnvName  = $categoryEnvName . '_' .strtoupper($settingName);
-
-                $envValue = getenv($settingEnvName);
-                if ($envValue !== false) {
-                    $general = $previous->$category;
-                    $general[$settingName] = $envValue;
-                    $previous->$category = $general;
-                }
-            }
-        }
+	
+		$category = "database";
+		$general = $previous->$category;
+		
+		$proxySql = getenv("CC_ENABLE_MYSQL_PROXYSQL");
+		if ($proxySql !== false) {
+			$unix_socket  = getenv("CC_MYSQL_PROXYSQL_SOCKET_PATH");
+			$general["unix_socket"] = $unix_socket;
+		}
+		else{
+			$host = getenv("MYSQL_ADDON_HOST");
+			$general["host"] = $host;
+		}
+		
+        $username = getenv("MYSQL_ADDON_USER");
+        $password = getenv("MYSQL_ADDON_PASSWORD");
+        $dbname = getenv("MYSQL_ADDON_DB");
+        $general["username"] = $username;
+        $general["password"] = $password;
+        $general["dbname"] = $dbname;
+		
+		$previous->$category = $general;
 
         return $previous;
     }),
